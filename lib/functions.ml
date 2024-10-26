@@ -101,6 +101,15 @@ let rec flatten l =
     | One s -> s :: flatten xs
     | Many subl -> concat (flatten subl) (flatten xs)
 
+(* This flatten was Primeagen's solution *)
+let flatten list =
+  let rec aux list out_list =
+    match list with
+    | [] -> out_list
+    | One x :: tl -> aux tl (x :: out_list)
+    | Many y :: tl -> aux tl (aux y out_list)
+  in
+  aux list [] |> reverse
 
 (* This flatten was the suggested solution *)
 let flatten list =
@@ -108,5 +117,13 @@ let flatten list =
     | [] -> acc
     | One x :: t -> aux (x::acc) t
     | Many l :: t -> aux (aux acc l) t
-  in 
+  in
   reverse (aux [] list)
+
+let compress list =
+  let rec aux char l =
+    match l with
+    | [] -> []
+    | x :: t -> if Some x = char then aux char t else x :: aux (Some x) t
+  in
+  aux None list
