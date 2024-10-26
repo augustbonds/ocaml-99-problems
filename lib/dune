@@ -1,2 +1,3 @@
 (library
- (name problems_99))
+ (name problems_99)
+ (libraries unix))
