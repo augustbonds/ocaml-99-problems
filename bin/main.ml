@@ -67,8 +67,7 @@ let function_under_test2 () = ignore (is_palindrome test_input2)
 
 let functions_to_test =
   [
-    ("array_based", function_under_test1);
-    ("list_based", function_under_test2);
+    ("array_based", function_under_test1); ("list_based", function_under_test2);
   ]
 
 let rec run_benchmarks l s_per_benchmark warmup_iters =
