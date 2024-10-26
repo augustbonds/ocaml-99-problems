@@ -84,3 +84,29 @@ let is_palindrome_opt l =
     else check (i+1)
   in
   check 0
+
+let rec concat l1 l2 =
+  match (l1, l2) with 
+    | ([], xs) -> xs
+    | (x::xs, y) -> x :: concat xs y
+
+type 'a node =
+  | One of 'a
+  | Many of 'a node list
+
+let rec flatten l =
+  match l with
+  | [] -> []
+  | x :: xs -> match x with 
+    | One s -> s :: flatten xs
+    | Many subl -> concat (flatten subl) (flatten xs)
+
+
+(* This flatten was the suggested solution *)
+let flatten list =
+  let rec aux acc = function
+    | [] -> acc
+    | One x :: t -> aux (x::acc) t
+    | Many l :: t -> aux (aux acc l) t
+  in 
+  reverse (aux [] list)
